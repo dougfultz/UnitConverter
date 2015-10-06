@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Unit Converter</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="bytes">Bytes</string>
+    <string name="kilobytes">Kilobytes</string>
+    <string name="megabytes">Megabytes</string>
+    <string name="gigabytes">Gigabytes</string>
+    <string name="terabytes">Terabytes</string>
+    <string name="petabytes">Petabytes</string>
+    <string name="exabytes">Exabytes</string>
+    <string name="zettabytes">Zettabytes</string>
+    <string name="yottabytes">Yottabytes</string>
+    <integer name="precision">10</integer>
+</resources>
