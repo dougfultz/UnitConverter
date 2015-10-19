@@ -12,7 +12,6 @@ import android.widget.EditText;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -184,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                     //recalculate all values after changed text box (dividing by 1024)
                     for (int i = changedIndex + 1; i < bigDecimalsValues.length; i++) {
                         //bigDecimalsValues[i] = bigDecimalsValues[i - 1].divide(multiple, RoundingMode.UNNECESSARY);
+                        //noinspection BigDecimalMethodWithoutRoundingCalled
                         bigDecimalsValues[i] = bigDecimalsValues[i - 1].divide(multiple);
                         Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": changing value [" + i + "]=" + bigDecimalsValues[i].toString());
                     }
