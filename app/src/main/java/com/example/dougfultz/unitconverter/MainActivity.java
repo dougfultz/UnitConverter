@@ -2,7 +2,7 @@ package com.example.dougfultz.unitconverter;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -12,14 +12,13 @@ import android.widget.EditText;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.text.DecimalFormat;
+import java.math.RoundingMode;
 
-
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "UnitConverter";
 
-    private Integer edit_XX[] = new Integer[]{
+    private final Integer[] edit_XX = new Integer[]{
             R.id.edit_Bytes, //0
             R.id.edit_KB,    //1
             R.id.edit_MB,    //2
@@ -31,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
             R.id.edit_YB     //8
     };
 
-    private BigDecimal bigDecimalsValues[] = new BigDecimal[]{
+    private final BigDecimal[] bigDecimalsValues = new BigDecimal[]{
             new BigDecimal(-1), //0
             new BigDecimal(-1), //1
             new BigDecimal(-1), //2
@@ -51,8 +50,8 @@ public class MainActivity extends ActionBarActivity {
 
         Log.d(TAG, "createInputTextWatchers: edit_XX.length=" + edit_XX.length);
 
-        for (int i = 0; i < edit_XX.length; i++) {
-            tempEditText = (EditText) findViewById(edit_XX[i]);
+        for (Integer anEdit_XX : edit_XX) {
+            tempEditText = (EditText) findViewById(anEdit_XX);
             tempInputTextWatcher = new InputTextWatcher(tempEditText);
             Log.d(TAG, "createInputTextWatchers: Adding text watcher to " + tempEditText.getResources().getResourceName(tempEditText.getId()));
             tempEditText.addTextChangedListener(tempInputTextWatcher);
@@ -72,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
         //Create and add text watchers to text boxes
         createInputTextWatchers();
 
-        Log.d(TAG, "onCreate: Set first textbox to 0");
+        Log.d(TAG, "onCreate: Set first text box to 0");
         EditText tempEditText = (EditText) findViewById(edit_XX[0]);
         tempEditText.setText("0");
 
@@ -133,7 +132,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private class InputTextWatcher implements TextWatcher {
-        private EditText textBox;
+        private final EditText textBox;
 
         private InputTextWatcher(EditText textBox) {
             this.textBox = textBox;
@@ -155,7 +154,6 @@ public class MainActivity extends ActionBarActivity {
             BigDecimal current, previous, multiple;
             EditText tempEditText;
             String tempString;
-            DecimalFormat format = new DecimalFormat("0E0");
 
             Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + "=[" + textBox.getText() + "]");
 
@@ -177,14 +175,15 @@ public class MainActivity extends ActionBarActivity {
                     Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": text changed, updating value");
                     bigDecimalsValues[changedIndex] = new BigDecimal(textBox.getText().toString());
 
-                    //recalculate all values before changed textbox (multiplying by 1024)
+                    //recalculate all values before changed text box (multiplying by 1024)
                     for (int i = changedIndex - 1; i >= 0; i--) {
                         bigDecimalsValues[i] = bigDecimalsValues[i + 1].multiply(multiple);
                         Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": changing value [" + i + "]=" + bigDecimalsValues[i].toString());
                     }
 
-                    //recalculate all values after changed textbox (diviging by 1024)
+                    //recalculate all values after changed text box (dividing by 1024)
                     for (int i = changedIndex + 1; i < bigDecimalsValues.length; i++) {
+                        //bigDecimalsValues[i] = bigDecimalsValues[i - 1].divide(multiple, RoundingMode.UNNECESSARY);
                         bigDecimalsValues[i] = bigDecimalsValues[i - 1].divide(multiple);
                         Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": changing value [" + i + "]=" + bigDecimalsValues[i].toString());
                     }
