@@ -2,7 +2,11 @@
   <dictionary name="dougfultz">
     <words>
       <w>dougfultz</w>
+      <w>exabytes</w>
+      <w>petabytes</w>
       <w>unitconverter</w>
+      <w>yottabytes</w>
+      <w>zettabytes</w>
     </words>
   </dictionary>
 </component>

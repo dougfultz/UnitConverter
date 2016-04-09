@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         for (Integer anEdit_XX : edit_XX) {
             tempEditText = (EditText) findViewById(anEdit_XX);
             tempInputTextWatcher = new InputTextWatcher(tempEditText);
+            assert tempEditText != null;
             Log.d(TAG, "createInputTextWatchers: Adding text watcher to " + tempEditText.getResources().getResourceName(tempEditText.getId()));
             tempEditText.addTextChangedListener(tempInputTextWatcher);
         }
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: Set first text box to 0");
         EditText tempEditText = (EditText) findViewById(edit_XX[0]);
+        assert tempEditText != null;
         tempEditText.setText("0");
 
         Log.d(TAG, "onCreate: End");
@@ -204,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                         tempEditText = (EditText) findViewById(edit_XX[i]);
                         tempString = bigDecimalsValues[i].toString();
                         Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": setting text to: " + tempString);
+                        assert tempEditText != null;
                         tempEditText.setText(tempString);
                     }
                 }
