@@ -200,13 +200,16 @@ public class MainActivity extends AppCompatActivity {
 
                         //set precision
                         Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": precision=" + bigDecimalsValues[i].precision());
-                        if (bigDecimalsValues[i].precision() > R.integer.precision) {
-                            Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": setting precision=" + R.integer.precision);
-                            bigDecimalsValues[i] = new BigDecimal(bigDecimalsValues[i].toString(), new MathContext(R.integer.precision));
+                        int precision=getResources().getInteger(R.integer.precision);
+                        Log.d(TAG, bigDecimalsValues[i].precision() + " " + precision);
+                        if (bigDecimalsValues[i].precision() > precision) {
+                            Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": setting precision=" + precision);
+                            bigDecimalsValues[i] = new BigDecimal(bigDecimalsValues[i].toString(), new MathContext(precision));
                         }
 
                         tempEditText = (EditText) findViewById(edit_XX[i]);
-                        tempString = bigDecimalsValues[i].toString();
+                        //tempString = bigDecimalsValues[i].toString();
+                        tempString = bigDecimalsValues[i].toEngineeringString();
                         Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": setting text to: " + tempString);
                         assert tempEditText != null;
                         tempEditText.setText(tempString);
