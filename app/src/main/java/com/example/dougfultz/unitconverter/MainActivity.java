@@ -178,14 +178,16 @@ public class MainActivity extends AppCompatActivity {
 
                     //recalculate all values before changed text box (multiplying by 1024)
                     for (int i = changedIndex - 1; i >= 0; i--) {
-                        bigDecimalsValues[i] = bigDecimalsValues[i + 1].multiply(multiple);
+                        bigDecimalsValues[i] = bigDecimalsValues[changedIndex].multiply(multiple.pow(changedIndex - i));
+                        //bigDecimalsValues[i] = bigDecimalsValues[i + 1].multiply(multiple);
                         Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": changing value [" + i + "]=" + bigDecimalsValues[i].toString());
                     }
 
                     //recalculate all values after changed text box (dividing by 1024)
                     for (int i = changedIndex + 1; i < bigDecimalsValues.length; i++) {
                         //noinspection BigDecimalMethodWithoutRoundingCalled
-                        bigDecimalsValues[i] = bigDecimalsValues[i - 1].divide(multiple);
+                        bigDecimalsValues[i] = bigDecimalsValues[changedIndex].divide(multiple.pow(i - changedIndex));
+                        //bigDecimalsValues[i] = bigDecimalsValues[i - 1].divide(multiple);
                         Log.d(TAG, "afterTextChange: " + textBox.getResources().getResourceName(textBox.getId()) + ": changing value [" + i + "]=" + bigDecimalsValues[i].toString());
                     }
 
